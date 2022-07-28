@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 
+import { JupyterFrontEnd } from "@jupyterlab/application";
+
 import { ReactWidget } from "@jupyterlab/apputils";
 
 import Alert from "@mui/material/Alert";
@@ -9,6 +11,8 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { ThemeProvider } from "@mui/material/styles";
 
 import { WebDSService } from "@webds/service";
+
+import { Landing } from "./widget_landing";
 
 let alertMessage = "";
 
@@ -29,7 +33,9 @@ const GuidedConfigContainer = (props: any): JSX.Element => {
   return (
     <div className="jp-webds-widget-body">
       <ThemeProvider theme={webdsTheme}>
-        {initialized ? null : (
+        {initialized ? (
+          <Landing frontend={props.frontend} service={props.service} />
+        ) : (
           <>
             {alert && (
               <Alert
@@ -58,17 +64,26 @@ const GuidedConfigContainer = (props: any): JSX.Element => {
 };
 
 export class GuidedConfigWidget extends ReactWidget {
-  service: WebDSService | null = null;
+  id: string;
+  frontend: JupyterFrontEnd;
+  service: WebDSService;
 
-  constructor(service: WebDSService) {
+  constructor(id: string, app: JupyterFrontEnd, service: WebDSService) {
     super();
+    this.id = id;
+    this.frontend = app;
     this.service = service;
   }
 
   render(): JSX.Element {
     return (
-      <div className="jp-webds-widget">
-        <GuidedConfigContainer service={this.service} />
+      <div id={this.id + "_container"} className="jp-webds-widget-container">
+        <div id={this.id + "_content"} className="jp-webds-widget">
+          <GuidedConfigContainer
+            frontend={this.frontend}
+            service={this.service}
+          />
+        </div>
       </div>
     );
   }

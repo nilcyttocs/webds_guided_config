@@ -17,8 +17,8 @@ import { GuidedConfigWidget } from "./widget_container";
 namespace Attributes {
   export const command = "webds_guided_config:open";
   export const id = "webds_guided_config_widget";
-  export const label = "Guided Config";
-  export const caption = "Guided Config";
+  export const label = "Guided";
+  export const caption = "Guided";
   export const category = "Touch - Configuration";
   export const rank = 10;
 }
@@ -49,7 +49,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
       },
       execute: () => {
         if (!widget || widget.isDisposed) {
-          const content = new GuidedConfigWidget(service);
+          const content = new GuidedConfigWidget(Attributes.id, app, service);
           widget = new WebDSWidget<GuidedConfigWidget>({ content });
           widget.id = Attributes.id;
           widget.title.label = Attributes.label;
