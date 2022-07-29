@@ -21,7 +21,7 @@ function getClientHeight() {
 }
 
 export const Landing = (props: any): JSX.Element => {
-  const [clientHeight, setClientHeight] = useState(0);
+  const [clientHeight, setClientHeight] = useState(getClientHeight());
   const [activeStep, setActiveStep] = useState(0);
 
   const webdsThemeInv = props.service.ui.getWebDSTheme({ inverted: true });
@@ -44,8 +44,6 @@ export const Landing = (props: any): JSX.Element => {
     function handleResize() {
       setClientHeight(getClientHeight());
     }
-
-    setClientHeight(getClientHeight());
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
