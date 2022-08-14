@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 
-import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 
 import MobileStepper from "@mui/material/MobileStepper";
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
@@ -15,13 +15,49 @@ import { ReflashWidget, SensorMappingWidget } from "@webds/service";
 const WIDTH = 800;
 const HEIGHT_CONTENT = 250;
 
-function getClientHeight() {
-  return document.getElementById("webds_guided_config_widget_content")!
-    .clientHeight;
+const CONTROL_PANEL_ID = "webds_guided_config_control_panel";
+const CONTROL_PANEL_WIDTH = 300;
+const CONTROL_PANEL_HEIGHT = 75;
+
+function dragElement(element: HTMLElement | null) {
+  if (!element) {
+    return;
+  }
+
+  let pos1 = 0;
+  let pos2 = 0;
+  let pos3 = 0;
+  let pos4 = 0;
+
+  function elementDrag(e: MouseEvent) {
+    e = e || window.event;
+    e.preventDefault();
+    pos1 = pos3 - e.clientX;
+    pos2 = pos4 - e.clientY;
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    element!.style.top = element!.offsetTop - pos2 + "px";
+    element!.style.left = element!.offsetLeft - pos1 + "px";
+  }
+
+  function closeDragElement() {
+    document.onmouseup = null;
+    document.onmousemove = null;
+  }
+
+  function dragMouseDown(e: MouseEvent) {
+    e = e || window.event;
+    e.preventDefault();
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    document.onmousemove = elementDrag;
+    document.onmouseup = closeDragElement;
+  }
+
+  element.onmousedown = dragMouseDown;
 }
 
 export const Landing = (props: any): JSX.Element => {
-  const [clientHeight, setClientHeight] = useState(getClientHeight());
   const [activeStep, setActiveStep] = useState(0);
 
   const webdsThemeInv = props.service.ui.getWebDSTheme({ inverted: true });
@@ -41,11 +77,7 @@ export const Landing = (props: any): JSX.Element => {
   };
 
   useEffect(() => {
-    function handleResize() {
-      setClientHeight(getClientHeight());
-    }
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    dragElement(document.getElementById(CONTROL_PANEL_ID));
   }, []);
 
   return (
@@ -53,7 +85,11 @@ export const Landing = (props: any): JSX.Element => {
       <div
         style={{
           width: "100%",
-          height: clientHeight - 48 + "px",
+          minHeight:
+            document.getElementById("webds_guided_config_widget_content")!
+              .clientHeight -
+            48 +
+            "px",
           position: "relative"
         }}
       >
@@ -79,51 +115,62 @@ export const Landing = (props: any): JSX.Element => {
           </Paper>
         </div>
         <ThemeProvider theme={webdsThemeInv}>
-          <Box
+          <Paper
+            id={CONTROL_PANEL_ID}
             sx={{
-              width: "300px",
-              height: "50px",
+              width: CONTROL_PANEL_WIDTH + "px",
+              height: CONTROL_PANEL_HEIGHT + "px",
+              cursor: "move",
               position: "absolute",
               bottom: "0px",
-              left: "0px",
-              display: "flex",
-              justifyContent: "center"
+              left: "0px"
             }}
           >
-            <MobileStepper
-              variant="text"
-              position="static"
-              steps={maxSteps}
-              activeStep={activeStep}
-              nextButton={
-                <Button
-                  variant="text"
-                  color="success"
-                  size="large"
-                  disabled={activeStep === maxSteps - 1}
-                  onClick={handleNext}
-                  sx={{ width: "70px" }}
-                >
-                  Next
-                  <KeyboardArrowRight />
-                </Button>
-              }
-              backButton={
-                <Button
-                  variant="text"
-                  color="success"
-                  size="large"
-                  disabled={activeStep === 0}
-                  onClick={handleBack}
-                  sx={{ width: "70px" }}
-                >
-                  <KeyboardArrowLeft />
-                  Back
-                </Button>
-              }
-              sx={{ width: "100%" }}
-            />
-          </Box>
+            <div
+              style={{
+                height: "40%"
+              }}
+            >
+              <Typography sx={{ padding: "8px", textAlign: "center" }}>
+                Configuration Steps
+              </Typography>
+            </div>
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <MobileStepper
+                variant="text"
+                position="static"
+                steps={maxSteps}
+                activeStep={activeStep}
+                nextButton={
+                  <Button
+                    variant="text"
+                    color="success"
+                    size="large"
+                    disabled={activeStep === maxSteps - 1}
+                    onClick={handleNext}
+                    sx={{ width: "70px" }}
+                  >
+                    Next
+                    <KeyboardArrowRight />
+                  </Button>
+                }
+                backButton={
+                  <Button
+                    variant="text"
+                    color="success"
+                    size="large"
+                    disabled={activeStep === 0}
+                    onClick={handleBack}
+                    sx={{ width: "70px" }}
+                  >
+                    <KeyboardArrowLeft />
+                    Back
+                  </Button>
+                }
+                sx={{ width: "100%", bgcolor: "transparent" }}
+              />
+            </div>
+          </Paper>
         </ThemeProvider>
       </div>
     </>
