@@ -20,11 +20,10 @@ const GuidedConfigContainer = (props: any): JSX.Element => {
   const [initialized, setInitialized] = useState<boolean>(false);
   const [alert, setAlert] = useState<boolean>(false);
 
-  const initialize = async () => {
-    setInitialized(true);
-  };
-
   useEffect(() => {
+    const initialize = async () => {
+      setInitialized(true);
+    };
     initialize();
   }, []);
 
@@ -78,7 +77,7 @@ export class GuidedConfigWidget extends ReactWidget {
   render(): JSX.Element {
     return (
       <div id={this.id + "_container"} className="jp-webds-widget-container">
-        <div id={this.id + "_content"} className="jp-webds-widget">
+        <div id={this.id + "_content"}>
           <GuidedConfigContainer
             frontend={this.frontend}
             service={this.service}
