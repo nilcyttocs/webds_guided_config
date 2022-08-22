@@ -27,11 +27,11 @@ export const Landing = (props: any): JSX.Element => {
   const maxSteps = steps.length;
 
   const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    setActiveStep((prevStep) => prevStep + 1);
   };
 
   const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    setActiveStep((prevStep) => prevStep - 1);
   };
 
   return (
@@ -44,11 +44,7 @@ export const Landing = (props: any): JSX.Element => {
               position: "absolute",
               top: "24px",
               left: "50%",
-              transform: "translate(-50%)",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center"
+              transform: "translate(-50%)"
             }}
           >
             {steps[activeStep]}
