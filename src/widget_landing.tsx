@@ -71,7 +71,7 @@ export const Landing = (props: any): JSX.Element => {
             elevation={5}
             sx={{
               position: "absolute",
-              top: "32px",
+              top: "24px",
               left: "50%",
               transform: "translate(-50%)"
             }}

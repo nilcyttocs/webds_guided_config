@@ -30,35 +30,34 @@ const GuidedConfigContainer = (props: any): JSX.Element => {
   const webdsTheme = props.service.ui.getWebDSTheme();
 
   return (
-    <div className="jp-webds-widget-body">
+    <>
       <ThemeProvider theme={webdsTheme}>
-        {initialized ? (
+        {alert && (
+          <Alert
+            severity="error"
+            onClose={() => setAlert(false)}
+            sx={{ whiteSpace: "pre-wrap" }}
+          >
+            {alertMessage}
+          </Alert>
+        )}
+        {initialized && (
           <Landing frontend={props.frontend} service={props.service} />
-        ) : (
-          <>
-            {alert && (
-              <Alert
-                severity="error"
-                onClose={() => setAlert(false)}
-                sx={{ whiteSpace: "pre-wrap" }}
-              >
-                {alertMessage}
-              </Alert>
-            )}
-            <div
-              style={{
-                position: "absolute",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)"
-              }}
-            >
-              <CircularProgress color="primary" />
-            </div>
-          </>
+        )}
+        {!initialized && (
+          <div
+            style={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)"
+            }}
+          >
+            <CircularProgress color="primary" />
+          </div>
         )}
       </ThemeProvider>
-    </div>
+    </>
   );
 };
 
