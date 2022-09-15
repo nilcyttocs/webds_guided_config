@@ -1,6 +1,6 @@
 {
   "name": "@webds/guided_config",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "webds_guided_config",
   "keywords": [
     "jupyter",
