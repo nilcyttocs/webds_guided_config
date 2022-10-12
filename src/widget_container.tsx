@@ -28,6 +28,7 @@ const GuidedConfigContainer = (props: any): JSX.Element => {
   }, []);
 
   const webdsTheme = props.service.ui.getWebDSTheme();
+  const addGuidedTuningUsage = props.service.analytics.addGuidedTuningUsage;
 
   return (
     <>
@@ -42,7 +43,11 @@ const GuidedConfigContainer = (props: any): JSX.Element => {
           </Alert>
         )}
         {initialized && (
-          <Landing frontend={props.frontend} service={props.service} />
+          <Landing
+            frontend={props.frontend}
+            service={props.service}
+            addGuidedTuningUsage={addGuidedTuningUsage}
+          />
         )}
         {!initialized && (
           <div

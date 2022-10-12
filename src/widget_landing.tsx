@@ -26,22 +26,31 @@ export const Landing = (props: any): JSX.Element => {
   const webdsThemeInv = props.service.ui.getWebDSTheme({ inverted: true });
 
   const steps = [
-    <ReflashWidget service={props.service} />,
-    <SensorMappingWidget service={props.service} />
+    {
+      name: "Reflash",
+      widget: <ReflashWidget service={props.service} />
+    },
+    {
+      name: "Sensor Mapping",
+      widget: <SensorMappingWidget service={props.service} />
+    }
   ];
   const maxSteps = steps.length;
 
   const handleNext = () => {
     nextStep += 1;
+    props.addGuidedTuningUsage(steps[nextStep].name);
     setFade(true);
   };
 
   const handleBack = () => {
     nextStep -= 1;
+    props.addGuidedTuningUsage(steps[nextStep].name);
     setFade(true);
   };
 
   useEffect(() => {
+    props.addGuidedTuningUsage(steps[activeStep].name);
     return () => {
       nextStep = 0;
       activeStep = 0;
@@ -76,7 +85,7 @@ export const Landing = (props: any): JSX.Element => {
               transform: "translate(-50%)"
             }}
           >
-            {steps[activeStep]}
+            {steps[activeStep].widget}
           </Paper>
         </Fade>
       </div>
