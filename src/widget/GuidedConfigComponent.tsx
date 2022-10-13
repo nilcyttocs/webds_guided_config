@@ -10,13 +10,11 @@ import CircularProgress from "@mui/material/CircularProgress";
 
 import { ThemeProvider } from "@mui/material/styles";
 
-import { WebDSService } from "@webds/service";
-
-import { Landing } from "./widget_landing";
+import { Landing } from "./Landing";
 
 let alertMessage = "";
 
-const GuidedConfigContainer = (props: any): JSX.Element => {
+export const GuidedConfigWComponent = (props: any): JSX.Element => {
   const [initialized, setInitialized] = useState<boolean>(false);
   const [alert, setAlert] = useState<boolean>(false);
 
@@ -66,28 +64,4 @@ const GuidedConfigContainer = (props: any): JSX.Element => {
   );
 };
 
-export class GuidedConfigWidget extends ReactWidget {
-  id: string;
-  frontend: JupyterFrontEnd;
-  service: WebDSService;
-
-  constructor(id: string, app: JupyterFrontEnd, service: WebDSService) {
-    super();
-    this.id = id;
-    this.frontend = app;
-    this.service = service;
-  }
-
-  render(): JSX.Element {
-    return (
-      <div id={this.id + "_container"} className="jp-webds-widget-container">
-        <div id={this.id + "_content"}>
-          <GuidedConfigContainer
-            frontend={this.frontend}
-            service={this.service}
-          />
-        </div>
-      </div>
-    );
-  }
-}
+export default GuidedConfigWComponent;

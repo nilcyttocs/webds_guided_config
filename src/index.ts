@@ -12,7 +12,7 @@ import { WebDSService, WebDSWidget } from "@webds/service";
 
 import { guidedConfigIcon } from "./icons";
 
-import { GuidedConfigWidget } from "./widget_container";
+import GuidedConfigWidget from "./widget/GuidedConfigWidget";
 
 namespace Attributes {
   export const command = "webds_guided_config:open";
