@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from "react";
 
-import { JupyterFrontEnd } from "@jupyterlab/application";
-
-import { ReactWidget } from "@jupyterlab/apputils";
-
 import Alert from "@mui/material/Alert";
 
 import CircularProgress from "@mui/material/CircularProgress";
