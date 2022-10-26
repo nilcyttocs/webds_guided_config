@@ -14,6 +14,8 @@ import { ThemeProvider } from "@mui/material/styles";
 
 import { ReflashWidget, SensorMappingWidget } from "@webds/service";
 
+import InitialSetupComponent from "../InitialSetup/InitialSetupComponent";
+
 const CONTROL_PANEL_WIDTH = 400;
 const CONTROL_PANEL_HEIGHT = 75;
 
@@ -33,6 +35,15 @@ export const Landing = (props: any): JSX.Element => {
     {
       name: "Sensor Mapping",
       widget: <SensorMappingWidget service={props.service} />
+    },
+    {
+      name: "Initial Setup",
+      widget: (
+        <InitialSetupComponent
+          service={props.service}
+          settingRegistry={props.setting}
+        />
+      )
     }
   ];
   const maxSteps = steps.length;

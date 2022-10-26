@@ -8,6 +8,8 @@ import { WidgetTracker } from "@jupyterlab/apputils";
 
 import { ILauncher } from "@jupyterlab/launcher";
 
+import { ISettingRegistry } from "@jupyterlab/settingregistry";
+
 import { WebDSService, WebDSWidget } from "@webds/service";
 
 import { guidedConfigIcon } from "./icons";
@@ -29,11 +31,12 @@ namespace Attributes {
 const plugin: JupyterFrontEndPlugin<void> = {
   id: "@webds/guided_config:plugin",
   autoStart: true,
-  requires: [ILauncher, ILayoutRestorer, WebDSService],
+  requires: [ILauncher, ILayoutRestorer, ISettingRegistry, WebDSService],
   activate: async (
     app: JupyterFrontEnd,
     launcher: ILauncher,
     restorer: ILayoutRestorer,
+    setting: ISettingRegistry,
     service: WebDSService
   ) => {
     console.log("JupyterLab extension @webds/guided_config is activated!");
@@ -51,7 +54,12 @@ const plugin: JupyterFrontEndPlugin<void> = {
       },
       execute: () => {
         if (!widget || widget.isDisposed) {
-          const content = new GuidedConfigWidget(Attributes.id, app, service);
+          const content = new GuidedConfigWidget(
+            Attributes.id,
+            app,
+            service,
+            setting
+          );
           widget = new WebDSWidget<GuidedConfigWidget>({ content });
           widget.id = Attributes.id;
           widget.title.label = Attributes.label;

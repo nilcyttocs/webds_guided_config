@@ -40,6 +40,7 @@ export const GuidedConfigWComponent = (props: any): JSX.Element => {
           <Landing
             frontend={props.frontend}
             service={props.service}
+            setting={props.setting}
             addGuidedTuningUsage={addGuidedTuningUsage}
           />
         )}
