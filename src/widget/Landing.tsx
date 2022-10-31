@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
 
 import Paper from "@mui/material/Paper";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
 import MobileStepper from "@mui/material/MobileStepper";
-import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
-import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 
 import Fade from "@mui/material/Fade";
 
 import { ThemeProvider } from "@mui/material/styles";
+
+import { BackButton, NextButton } from "./mui_extensions/Button";
 
 import { ReflashWidget, SensorMappingWidget } from "@webds/service";
 
@@ -126,31 +125,23 @@ export const Landing = (props: any): JSX.Element => {
               position="static"
               steps={maxSteps}
               activeStep={activeStep}
-              nextButton={
-                <Button
-                  variant="text"
-                  color="success"
-                  size="large"
-                  disabled={activeStep === maxSteps - 1}
-                  onClick={handleNext}
-                  sx={{ width: "70px" }}
-                >
-                  Next
-                  <KeyboardArrowRight />
-                </Button>
-              }
               backButton={
-                <Button
-                  variant="text"
+                <BackButton
                   color="success"
                   size="large"
                   disabled={activeStep === 0}
                   onClick={handleBack}
                   sx={{ width: "70px" }}
-                >
-                  <KeyboardArrowLeft />
-                  Back
-                </Button>
+                />
+              }
+              nextButton={
+                <NextButton
+                  color="success"
+                  size="large"
+                  disabled={activeStep === maxSteps - 1}
+                  onClick={handleNext}
+                  sx={{ width: "70px" }}
+                />
               }
               sx={{ width: "100%", bgcolor: "transparent" }}
             />
