@@ -11,12 +11,13 @@ import { ThemeProvider } from "@mui/material/styles";
 
 import { BackButton, NextButton } from "./mui_extensions/Button";
 
-import { ReflashWidget, SensorMappingWidget } from "@webds/service";
+import { CONTROL_PANEL_WIDTH, CONTROL_PANEL_HEIGHT } from "./constants";
+
+import ReflashComponent from "../Reflash/ReflashComponent";
+
+import SensorMappingComponent from "../SensorMapping/SensorMappingComponent";
 
 import InitialSetupComponent from "../InitialSetup/InitialSetupComponent";
-
-const CONTROL_PANEL_WIDTH = 400;
-const CONTROL_PANEL_HEIGHT = 75;
 
 let nextStep = 0;
 let activeStep = 0;
@@ -29,11 +30,11 @@ export const Landing = (props: any): JSX.Element => {
   const steps = [
     {
       name: "Reflash",
-      widget: <ReflashWidget service={props.service} />
+      widget: <ReflashComponent service={props.service} />
     },
     {
       name: "Sensor Mapping",
-      widget: <SensorMappingWidget service={props.service} />
+      widget: <SensorMappingComponent service={props.service} />
     },
     {
       name: "Initial Setup",
@@ -86,17 +87,16 @@ export const Landing = (props: any): JSX.Element => {
             );
           }}
         >
-          <Paper
-            elevation={5}
-            sx={{
+          <div
+            style={{
               position: "absolute",
-              top: "24px",
+              top: 0,
               left: "50%",
               transform: "translate(-50%)"
             }}
           >
             {steps[activeStep].widget}
-          </Paper>
+          </div>
         </Fade>
       </div>
       <ThemeProvider theme={webdsThemeInv}>
