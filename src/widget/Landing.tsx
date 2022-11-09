@@ -70,84 +70,91 @@ export const Landing = (props: any): JSX.Element => {
 
   return (
     <>
-      <div>
-        <Fade
-          in={!fade}
-          addEndListener={(node, done) => {
-            node.addEventListener(
-              "transitionend",
-              () => {
-                if (fade) {
-                  activeStep = nextStep;
-                  setFade(false);
-                }
-                done();
-              },
-              false
-            );
-          }}
-        >
-          <div
-            style={{
-              position: "absolute",
-              top: 0,
-              left: "50%",
-              transform: "translate(-50%)"
+      <div className="jp-webds-widget-outer-pseudo">
+        <div style={{ display: "table-row" }}>
+          <Fade
+            in={!fade}
+            addEndListener={(node, done) => {
+              node.addEventListener(
+                "transitionend",
+                () => {
+                  if (fade) {
+                    activeStep = nextStep;
+                    setFade(false);
+                  }
+                  done();
+                },
+                false
+              );
             }}
           >
-            {steps[activeStep].widget}
+            <div
+              style={{
+                display: "table-cell",
+                verticalAlign: "top"
+              }}
+            >
+              {steps[activeStep].widget}
+            </div>
+          </Fade>
+        </div>
+        <ThemeProvider theme={webdsThemeInv}>
+          <div style={{ display: "table-row" }}>
+            <div
+              style={{
+                display: "table-cell",
+                verticalAlign: "bottom"
+              }}
+            >
+              <div className="jp-webds-widget-body">
+                <Paper
+                  sx={{
+                    width: CONTROL_PANEL_WIDTH + "px",
+                    height: CONTROL_PANEL_HEIGHT + "px"
+                  }}
+                >
+                  <div
+                    style={{
+                      height: "40%"
+                    }}
+                  >
+                    <Typography sx={{ padding: "8px", textAlign: "center" }}>
+                      Configuration Steps
+                    </Typography>
+                  </div>
+                  <div style={{ display: "flex", justifyContent: "center" }}>
+                    <MobileStepper
+                      variant="text"
+                      position="static"
+                      steps={maxSteps}
+                      activeStep={activeStep}
+                      backButton={
+                        <BackButton
+                          color="success"
+                          size="large"
+                          disabled={activeStep === 0}
+                          onClick={handleBack}
+                          sx={{ width: "70px" }}
+                        />
+                      }
+                      nextButton={
+                        <NextButton
+                          color="success"
+                          size="large"
+                          disabled={activeStep === maxSteps - 1}
+                          onClick={handleNext}
+                          sx={{ width: "70px" }}
+                        />
+                      }
+                      sx={{ width: "100%", bgcolor: "transparent" }}
+                    />
+                  </div>
+                </Paper>
+              </div>
+            </div>
           </div>
-        </Fade>
+        </ThemeProvider>
       </div>
-      <ThemeProvider theme={webdsThemeInv}>
-        <Paper
-          sx={{
-            width: CONTROL_PANEL_WIDTH + "px",
-            height: CONTROL_PANEL_HEIGHT + "px",
-            position: "absolute",
-            bottom: "24px",
-            left: "50%",
-            transform: "translate(-50%)"
-          }}
-        >
-          <div
-            style={{
-              height: "40%"
-            }}
-          >
-            <Typography sx={{ padding: "8px", textAlign: "center" }}>
-              Configuration Steps
-            </Typography>
-          </div>
-          <div style={{ display: "flex", justifyContent: "center" }}>
-            <MobileStepper
-              variant="text"
-              position="static"
-              steps={maxSteps}
-              activeStep={activeStep}
-              backButton={
-                <BackButton
-                  color="success"
-                  size="large"
-                  disabled={activeStep === 0}
-                  onClick={handleBack}
-                  sx={{ width: "70px" }}
-                />
-              }
-              nextButton={
-                <NextButton
-                  color="success"
-                  size="large"
-                  disabled={activeStep === maxSteps - 1}
-                  onClick={handleNext}
-                  sx={{ width: "70px" }}
-                />
-              }
-              sx={{ width: "100%", bgcolor: "transparent" }}
-            />
-          </div>
-        </Paper>
-      </ThemeProvider>
     </>
   );
 };

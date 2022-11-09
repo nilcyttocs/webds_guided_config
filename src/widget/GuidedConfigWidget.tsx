@@ -32,7 +32,7 @@ export class GuidedConfigWidget extends ReactWidget {
   render(): JSX.Element {
     return (
       <div id={this.id + "_container"} className="jp-webds-widget-container">
-        <div id={this.id + "_content"}>
+        <div id={this.id + "_content"} className="jp-webds-widget">
           <GuidedConfigComponent
             frontend={this.frontend}
             service={this.service}
