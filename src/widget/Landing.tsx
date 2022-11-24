@@ -19,6 +19,8 @@ import SensorMappingComponent from "../SensorMapping/SensorMappingComponent";
 
 import InitialSetupComponent from "../InitialSetup/InitialSetupComponent";
 
+import IntegrationDurationComponent from "../IntegrationDuration/IntegrationDurationComponent";
+
 let nextStep = 0;
 let activeStep = 0;
 
@@ -44,6 +46,10 @@ export const Landing = (props: any): JSX.Element => {
           settingRegistry={props.setting}
         />
       )
+    },
+    {
+      name: "Integration Duration",
+      widget: <IntegrationDurationComponent service={props.service} />
     }
   ];
   const maxSteps = steps.length;
