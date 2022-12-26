@@ -25,6 +25,8 @@ namespace Attributes {
   export const rank = 10;
 }
 
+export let webdsService: WebDSService;
+
 /**
  * Initialization data for the @webds/guided_config extension.
  */
@@ -41,6 +43,8 @@ const plugin: JupyterFrontEndPlugin<void> = {
   ) => {
     console.log("JupyterLab extension @webds/guided_config is activated!");
 
+    webdsService = service;
+
     let widget: WebDSWidget;
     const { commands, shell } = app;
     const command = Attributes.command;
@@ -55,7 +59,6 @@ const plugin: JupyterFrontEndPlugin<void> = {
           const content = new GuidedConfigWidget(
             Attributes.id,
             app,
-            service,
             setting
           );
           widget = new WebDSWidget<GuidedConfigWidget>({ content });

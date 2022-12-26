@@ -1,3 +1,3 @@
-export { webdsService } from "./widget/GuidedConfigWidget";
+export { webdsService } from "./index";
 
 export { requestAPI } from "./handler";
