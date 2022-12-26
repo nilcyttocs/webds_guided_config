@@ -8,11 +8,16 @@ import { ThemeProvider } from "@mui/material/styles";
 
 import { Landing } from "./Landing";
 
+import { webdsService } from "./local_exports";
+
 let alertMessage = "";
 
 export const GuidedConfigWComponent = (props: any): JSX.Element => {
   const [initialized, setInitialized] = useState<boolean>(false);
   const [alert, setAlert] = useState<boolean>(false);
+
+  const webdsTheme = webdsService.ui.getWebDSTheme();
+  const addGuidedTuningUsage = webdsService.analytics.addGuidedTuningUsage;
 
   useEffect(() => {
     const initialize = async () => {
@@ -20,9 +25,6 @@ export const GuidedConfigWComponent = (props: any): JSX.Element => {
     };
     initialize();
   }, []);
-
-  const webdsTheme = props.service.ui.getWebDSTheme();
-  const addGuidedTuningUsage = props.service.analytics.addGuidedTuningUsage;
 
   return (
     <>
@@ -39,7 +41,6 @@ export const GuidedConfigWComponent = (props: any): JSX.Element => {
         {initialized && (
           <Landing
             frontend={props.frontend}
-            service={props.service}
             setting={props.setting}
             addGuidedTuningUsage={addGuidedTuningUsage}
           />

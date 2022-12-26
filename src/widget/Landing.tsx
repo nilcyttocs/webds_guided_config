@@ -11,6 +11,8 @@ import { ThemeProvider } from "@mui/material/styles";
 
 import { BackButton, NextButton } from "./mui_extensions/Button";
 
+import { webdsService } from "./local_exports";
+
 import { CONTROL_PANEL_WIDTH, CONTROL_PANEL_HEIGHT } from "./constants";
 
 import ReflashComponent from "../Reflash/ReflashComponent";
@@ -27,29 +29,29 @@ let activeStep = 0;
 export const Landing = (props: any): JSX.Element => {
   const [fade, setFade] = useState(false);
 
-  const webdsThemeInv = props.service.ui.getWebDSTheme({ inverted: true });
+  const webdsThemeInv = webdsService.ui.getWebDSTheme({ inverted: true });
 
   const steps = [
     {
       name: "Reflash",
-      widget: <ReflashComponent service={props.service} />
+      widget: <ReflashComponent service={webdsService} />
     },
     {
       name: "Sensor Mapping",
-      widget: <SensorMappingComponent service={props.service} />
+      widget: <SensorMappingComponent service={webdsService} />
     },
     {
       name: "Initial Setup",
       widget: (
         <InitialSetupComponent
-          service={props.service}
+          service={webdsService}
           settingRegistry={props.setting}
         />
       )
     },
     {
       name: "Integration Duration",
-      widget: <IntegrationDurationComponent service={props.service} />
+      widget: <IntegrationDurationComponent />
     }
   ];
   const maxSteps = steps.length;

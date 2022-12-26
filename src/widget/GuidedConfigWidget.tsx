@@ -10,6 +10,8 @@ import { WebDSService } from "@webds/service";
 
 import GuidedConfigComponent from "./GuidedConfigComponent";
 
+export let webdsService: WebDSService;
+
 export class GuidedConfigWidget extends ReactWidget {
   id: string;
   frontend: JupyterFrontEnd;
@@ -30,12 +32,12 @@ export class GuidedConfigWidget extends ReactWidget {
   }
 
   render(): JSX.Element {
+    webdsService = this.service;
     return (
       <div id={this.id + "_container"} className="jp-webds-widget-container">
         <div id={this.id + "_content"} className="jp-webds-widget">
           <GuidedConfigComponent
             frontend={this.frontend}
-            service={this.service}
             setting={this.setting}
           />
         </div>
