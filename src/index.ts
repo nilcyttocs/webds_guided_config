@@ -27,6 +27,8 @@ namespace Attributes {
 
 export let webdsService: WebDSService;
 
+export let settingRegistry: ISettingRegistry;
+
 /**
  * Initialization data for the @webds/guided_config extension.
  */
@@ -45,6 +47,8 @@ const plugin: JupyterFrontEndPlugin<void> = {
 
     webdsService = service;
 
+    settingRegistry = setting;
+
     let widget: WebDSWidget;
     const { commands, shell } = app;
     const command = Attributes.command;
@@ -56,11 +60,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
       },
       execute: () => {
         if (!widget || widget.isDisposed) {
-          const content = new GuidedConfigWidget(
-            Attributes.id,
-            app,
-            setting
-          );
+          const content = new GuidedConfigWidget(Attributes.id);
           widget = new WebDSWidget<GuidedConfigWidget>({ content });
           widget.id = Attributes.id;
           widget.title.label = Attributes.label;

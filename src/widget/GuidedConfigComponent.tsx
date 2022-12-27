@@ -17,7 +17,6 @@ export const GuidedConfigWComponent = (props: any): JSX.Element => {
   const [alert, setAlert] = useState<boolean>(false);
 
   const webdsTheme = webdsService.ui.getWebDSTheme();
-  const addGuidedTuningUsage = webdsService.analytics.addGuidedTuningUsage;
 
   useEffect(() => {
     const initialize = async () => {
@@ -38,13 +37,7 @@ export const GuidedConfigWComponent = (props: any): JSX.Element => {
             {alertMessage}
           </Alert>
         )}
-        {initialized && (
-          <Landing
-            frontend={props.frontend}
-            setting={props.setting}
-            addGuidedTuningUsage={addGuidedTuningUsage}
-          />
-        )}
+        {initialized && <Landing />}
         {!initialized && (
           <div
             style={{

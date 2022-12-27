@@ -11,7 +11,7 @@ import { ThemeProvider } from "@mui/material/styles";
 
 import { BackButton, NextButton } from "./mui_extensions/Button";
 
-import { webdsService } from "./local_exports";
+import { settingRegistry, webdsService } from "./local_exports";
 
 import { CONTROL_PANEL_WIDTH, CONTROL_PANEL_HEIGHT } from "./constants";
 
@@ -45,7 +45,7 @@ export const Landing = (props: any): JSX.Element => {
       widget: (
         <InitialSetupComponent
           service={webdsService}
-          settingRegistry={props.setting}
+          settingRegistry={settingRegistry}
         />
       )
     },
@@ -58,18 +58,18 @@ export const Landing = (props: any): JSX.Element => {
 
   const handleNext = () => {
     nextStep += 1;
-    props.addGuidedTuningUsage(steps[nextStep].name);
+    webdsService.analytics.addGuidedTuningUsage(steps[nextStep].name);
     setFade(true);
   };
 
   const handleBack = () => {
     nextStep -= 1;
-    props.addGuidedTuningUsage(steps[nextStep].name);
+    webdsService.analytics.addGuidedTuningUsage(steps[nextStep].name);
     setFade(true);
   };
 
   useEffect(() => {
-    props.addGuidedTuningUsage(steps[activeStep].name);
+    webdsService.analytics.addGuidedTuningUsage(steps[activeStep].name);
     return () => {
       nextStep = 0;
       activeStep = 0;
