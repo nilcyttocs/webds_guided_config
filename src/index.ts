@@ -5,7 +5,6 @@ import {
 } from '@jupyterlab/application';
 import { WidgetTracker } from '@jupyterlab/apputils';
 import { ILauncher } from '@jupyterlab/launcher';
-import { ISettingRegistry } from '@jupyterlab/settingregistry';
 import { WebDSService, WebDSWidget } from '@webds/service';
 
 import { guidedConfigIcon } from './icons';
@@ -22,20 +21,17 @@ namespace Attributes {
 
 export let webdsService: WebDSService;
 
-export let settingRegistry: ISettingRegistry;
-
 /**
  * Initialization data for the @webds/guided_config extension.
  */
 const plugin: JupyterFrontEndPlugin<void> = {
   id: '@webds/guided_config:plugin',
   autoStart: true,
-  requires: [ILauncher, ILayoutRestorer, ISettingRegistry, WebDSService],
+  requires: [ILauncher, ILayoutRestorer, WebDSService],
   activate: (
     app: JupyterFrontEnd,
     launcher: ILauncher,
     restorer: ILayoutRestorer,
-    setting: ISettingRegistry,
     service: WebDSService
   ) => {
     console.log('JupyterLab extension @webds/guided_config is activated!');

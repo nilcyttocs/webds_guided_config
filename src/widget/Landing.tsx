@@ -11,7 +11,7 @@ import IntegrationDurationComponent from '../IntegrationDuration/IntegrationDura
 import ReflashComponent from '../Reflash/ReflashComponent';
 import SensorMappingComponent from '../SensorMapping/SensorMappingComponent';
 import { CONTROL_PANEL_HEIGHT, CONTROL_PANEL_WIDTH } from './constants';
-import { settingRegistry, webdsService } from './local_exports';
+import { webdsService } from './local_exports';
 import { BackButton, NextButton } from './mui_extensions/Button';
 
 let nextStep = 0;
@@ -25,20 +25,15 @@ export const Landing = (props: any): JSX.Element => {
   const steps = [
     {
       name: 'Reflash',
-      widget: <ReflashComponent service={webdsService} />
+      widget: <ReflashComponent />
     },
     {
       name: 'Sensor Mapping',
-      widget: <SensorMappingComponent service={webdsService} />
+      widget: <SensorMappingComponent />
     },
     {
       name: 'Initial Setup',
-      widget: (
-        <InitialSetupComponent
-          service={webdsService}
-          settingRegistry={settingRegistry}
-        />
-      )
+      widget: <InitialSetupComponent />
     },
     {
       name: 'Integration Duration',
