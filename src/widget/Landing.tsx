@@ -6,13 +6,13 @@ import Paper from '@mui/material/Paper';
 import { ThemeProvider } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 
-import InitialSetupComponent from '../InitialSetup/InitialSetupComponent';
-import IntegrationDurationComponent from '../IntegrationDuration/IntegrationDurationComponent';
-import ReflashComponent from '../Reflash/ReflashComponent';
-import SensorMappingComponent from '../SensorMapping/SensorMappingComponent';
 import { CONTROL_PANEL_HEIGHT, CONTROL_PANEL_WIDTH } from './constants';
+import InitialSetupComponent from './InitialSetup/InitialSetupComponent';
+import IntegrationDurationComponent from './IntegrationDuration/IntegrationDurationComponent';
 import { webdsService } from './local_exports';
 import { BackButton, NextButton } from './mui_extensions/Button';
+import ReflashComponent from './Reflash/ReflashComponent';
+import SensorMappingComponent from './SensorMapping/SensorMappingComponent';
 
 let nextStep = 0;
 let activeStep = 0;

@@ -1,1 +1,1 @@
-export { requestAPI, webdsService } from '../local_exports';
+export { requestAPI, settingRegistry, webdsService } from '../local_exports';
