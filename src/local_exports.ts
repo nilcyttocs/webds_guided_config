@@ -1,2 +1,2 @@
 export { requestAPI } from './handler';
-export { webdsService } from './index';
+export { settingRegistry, webdsService } from './index';
