@@ -2,26 +2,21 @@ import {
   ILayoutRestorer,
   JupyterFrontEnd,
   JupyterFrontEndPlugin
-} from "@jupyterlab/application";
+} from '@jupyterlab/application';
+import { WidgetTracker } from '@jupyterlab/apputils';
+import { ILauncher } from '@jupyterlab/launcher';
+import { ISettingRegistry } from '@jupyterlab/settingregistry';
+import { WebDSService, WebDSWidget } from '@webds/service';
 
-import { WidgetTracker } from "@jupyterlab/apputils";
-
-import { ILauncher } from "@jupyterlab/launcher";
-
-import { ISettingRegistry } from "@jupyterlab/settingregistry";
-
-import { WebDSService, WebDSWidget } from "@webds/service";
-
-import { guidedConfigIcon } from "./icons";
-
-import GuidedConfigWidget from "./widget/GuidedConfigWidget";
+import { guidedConfigIcon } from './icons';
+import GuidedConfigWidget from './widget/GuidedConfigWidget';
 
 namespace Attributes {
-  export const command = "webds_guided_config:open";
-  export const id = "webds_guided_config_widget";
-  export const label = "Guided";
-  export const caption = "Guided";
-  export const category = "Touch - Configuration";
+  export const command = 'webds_guided_config:open';
+  export const id = 'webds_guided_config_widget';
+  export const label = 'Guided';
+  export const caption = 'Guided';
+  export const category = 'Touch - Configuration';
   export const rank = 10;
 }
 
@@ -33,7 +28,7 @@ export let settingRegistry: ISettingRegistry;
  * Initialization data for the @webds/guided_config extension.
  */
 const plugin: JupyterFrontEndPlugin<void> = {
-  id: "@webds/guided_config:plugin",
+  id: '@webds/guided_config:plugin',
   autoStart: true,
   requires: [ILauncher, ILayoutRestorer, ISettingRegistry, WebDSService],
   activate: (
@@ -43,7 +38,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
     setting: ISettingRegistry,
     service: WebDSService
   ) => {
-    console.log("JupyterLab extension @webds/guided_config is activated!");
+    console.log('JupyterLab extension @webds/guided_config is activated!');
 
     webdsService = service;
 
@@ -56,7 +51,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
       label: Attributes.label,
       caption: Attributes.caption,
       icon: (args: { [x: string]: any }) => {
-        return args["isLauncher"] ? guidedConfigIcon : undefined;
+        return args['isLauncher'] ? guidedConfigIcon : undefined;
       },
       execute: () => {
         if (!widget || widget.isDisposed) {
@@ -70,7 +65,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
 
         if (!tracker.has(widget)) tracker.add(widget);
 
-        if (!widget.isAttached) shell.add(widget, "main");
+        if (!widget.isAttached) shell.add(widget, 'main');
 
         shell.activateById(widget.id);
       }

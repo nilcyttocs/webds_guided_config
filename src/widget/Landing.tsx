@@ -1,27 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 
-import Paper from "@mui/material/Paper";
-import Typography from "@mui/material/Typography";
+import Fade from '@mui/material/Fade';
+import MobileStepper from '@mui/material/MobileStepper';
+import Paper from '@mui/material/Paper';
+import { ThemeProvider } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
 
-import MobileStepper from "@mui/material/MobileStepper";
-
-import Fade from "@mui/material/Fade";
-
-import { ThemeProvider } from "@mui/material/styles";
-
-import { BackButton, NextButton } from "./mui_extensions/Button";
-
-import { settingRegistry, webdsService } from "./local_exports";
-
-import { CONTROL_PANEL_WIDTH, CONTROL_PANEL_HEIGHT } from "./constants";
-
-import ReflashComponent from "../Reflash/ReflashComponent";
-
-import SensorMappingComponent from "../SensorMapping/SensorMappingComponent";
-
-import InitialSetupComponent from "../InitialSetup/InitialSetupComponent";
-
-import IntegrationDurationComponent from "../IntegrationDuration/IntegrationDurationComponent";
+import InitialSetupComponent from '../InitialSetup/InitialSetupComponent';
+import IntegrationDurationComponent from '../IntegrationDuration/IntegrationDurationComponent';
+import ReflashComponent from '../Reflash/ReflashComponent';
+import SensorMappingComponent from '../SensorMapping/SensorMappingComponent';
+import { CONTROL_PANEL_HEIGHT, CONTROL_PANEL_WIDTH } from './constants';
+import { settingRegistry, webdsService } from './local_exports';
+import { BackButton, NextButton } from './mui_extensions/Button';
 
 let nextStep = 0;
 let activeStep = 0;
@@ -33,15 +24,15 @@ export const Landing = (props: any): JSX.Element => {
 
   const steps = [
     {
-      name: "Reflash",
+      name: 'Reflash',
       widget: <ReflashComponent service={webdsService} />
     },
     {
-      name: "Sensor Mapping",
+      name: 'Sensor Mapping',
       widget: <SensorMappingComponent service={webdsService} />
     },
     {
-      name: "Initial Setup",
+      name: 'Initial Setup',
       widget: (
         <InitialSetupComponent
           service={webdsService}
@@ -50,7 +41,7 @@ export const Landing = (props: any): JSX.Element => {
       )
     },
     {
-      name: "Integration Duration",
+      name: 'Integration Duration',
       widget: <IntegrationDurationComponent />
     }
   ];
@@ -79,12 +70,12 @@ export const Landing = (props: any): JSX.Element => {
   return (
     <>
       <div className="jp-webds-widget-outer-pseudo">
-        <div style={{ display: "table-row" }}>
+        <div style={{ display: 'table-row' }}>
           <Fade
             in={!fade}
             addEndListener={(node, done) => {
               node.addEventListener(
-                "transitionend",
+                'transitionend',
                 () => {
                   if (fade) {
                     activeStep = nextStep;
@@ -98,8 +89,8 @@ export const Landing = (props: any): JSX.Element => {
           >
             <div
               style={{
-                display: "table-cell",
-                verticalAlign: "top"
+                display: 'table-cell',
+                verticalAlign: 'top'
               }}
             >
               {steps[activeStep].widget}
@@ -107,30 +98,30 @@ export const Landing = (props: any): JSX.Element => {
           </Fade>
         </div>
         <ThemeProvider theme={webdsThemeInv}>
-          <div style={{ display: "table-row" }}>
+          <div style={{ display: 'table-row' }}>
             <div
               style={{
-                display: "table-cell",
-                verticalAlign: "bottom"
+                display: 'table-cell',
+                verticalAlign: 'bottom'
               }}
             >
               <div className="jp-webds-widget-body">
                 <Paper
                   sx={{
-                    width: CONTROL_PANEL_WIDTH + "px",
-                    height: CONTROL_PANEL_HEIGHT + "px"
+                    width: CONTROL_PANEL_WIDTH + 'px',
+                    height: CONTROL_PANEL_HEIGHT + 'px'
                   }}
                 >
                   <div
                     style={{
-                      height: "40%"
+                      height: '40%'
                     }}
                   >
-                    <Typography sx={{ padding: "8px", textAlign: "center" }}>
+                    <Typography sx={{ padding: '8px', textAlign: 'center' }}>
                       Configuration Steps
                     </Typography>
                   </div>
-                  <div style={{ display: "flex", justifyContent: "center" }}>
+                  <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <MobileStepper
                       variant="text"
                       position="static"
@@ -142,7 +133,7 @@ export const Landing = (props: any): JSX.Element => {
                           size="large"
                           disabled={activeStep === 0}
                           onClick={handleBack}
-                          sx={{ width: "70px" }}
+                          sx={{ width: '70px' }}
                         />
                       }
                       nextButton={
@@ -151,10 +142,10 @@ export const Landing = (props: any): JSX.Element => {
                           size="large"
                           disabled={activeStep === maxSteps - 1}
                           onClick={handleNext}
-                          sx={{ width: "70px" }}
+                          sx={{ width: '70px' }}
                         />
                       }
-                      sx={{ width: "100%", bgcolor: "transparent" }}
+                      sx={{ width: '100%', bgcolor: 'transparent' }}
                     />
                   </div>
                 </Paper>
