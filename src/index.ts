@@ -16,7 +16,7 @@ namespace Attributes {
   export const id = 'webds_guided_config_widget';
   export const label = 'Guided';
   export const caption = 'Guided';
-  export const category = 'Touch - Configuration';
+  export const category = 'Device - Configuration';
   export const rank = 10;
 }
 
