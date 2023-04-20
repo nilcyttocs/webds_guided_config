@@ -7,11 +7,9 @@ import { ThemeProvider } from '@mui/material/styles';
 import { Landing } from './Landing';
 import { webdsService } from './local_exports';
 
-let alertMessage = '';
-
 export const GuidedConfigWComponent = (props: any): JSX.Element => {
   const [initialized, setInitialized] = useState<boolean>(false);
-  const [alert, setAlert] = useState<boolean>(false);
+  const [alert, setAlert] = useState<string | undefined>(undefined);
 
   const webdsTheme = webdsService.ui.getWebDSTheme();
 
@@ -25,16 +23,16 @@ export const GuidedConfigWComponent = (props: any): JSX.Element => {
   return (
     <>
       <ThemeProvider theme={webdsTheme}>
-        {alert && (
+        {alert !== undefined && (
           <Alert
             severity="error"
-            onClose={() => setAlert(false)}
+            onClose={() => setAlert(undefined)}
             sx={{ whiteSpace: 'pre-wrap' }}
           >
-            {alertMessage}
+            {alert}
           </Alert>
         )}
-        {initialized && <Landing />}
+        {initialized && <Landing setAlert={setAlert} />}
         {!initialized && (
           <div
             style={{
