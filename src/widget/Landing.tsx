@@ -10,7 +10,7 @@ import { CONTROL_PANEL_HEIGHT, CONTROL_PANEL_WIDTH } from './constants';
 import InitialSetupComponent from './InitialSetup/InitialSetupComponent';
 import IntegrationDurationComponent from './IntegrationDuration/IntegrationDurationComponent';
 import { webdsService } from './local_exports';
-import { BackButton, NextButton } from './mui_extensions/Button';
+import { BackButton, NextButton } from './mui_extensions/Buttons';
 import ReflashComponent from './Reflash/ReflashComponent';
 import SensorMappingComponent from './SensorMapping/SensorMappingComponent';
 
